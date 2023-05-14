@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  directus:
+    image: directus-extension-token-roles
+    container_name: directus
+    build:
+      context: .
+    ports:
+     - 8055:8055
+    environment:
+      KEY: asdfasdfasdfasdfasdf
+      SECRET: asdfasdfasdfasdfsadfafasdfasdfas
+      ADMIN_EMAIL: admin@admin.com
+      ADMIN_PASSWORD: admin
+      PUBLIC_URL: "http://localhost:8055"
+
+      # AUTH_DISABLE_DEFAULT: 'true'
+      AUTH_PROVIDERS: keycloak
+      AUTH_KEYCLOAK_DRIVER: openid
+      AUTH_KEYCLOAK_CLIENT_ID: $CLIENT_ID
+      AUTH_KEYCLOAK_CLIENT_SECRET: $CLIENT_SECRET
+      AUTH_KEYCLOAK_ISSUER_URL: https://auth.${DOMAIN}/realms/${KC_REALM:-master}/.well-known/openid-configuration
+      AUTH_KEYCLOAK_IDENTIFIER_KEY: email
+      # AUTH_KEYCLOAK_DEFAULT_ROLE_ID: $ROLE_ID
+      AUTH_KEYCLOAK_ALLOW_PUBLIC_REGISTRATION: 'true'
+      # AUTH_KEYCLOAK_PARAMS: # custom params
+      AUTH_KEYCLOAK_CLAIM_NAME: directus_role.0
+      AUTH_KEYCLOAK_OVERWRITE_USER_FIELDS: given_name:first_name, family_name:last_name
