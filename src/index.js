@@ -29,6 +29,8 @@ const tokenRoleFilter = async(
   const prefix = `AUTH_${provider.toUpperCase()}`
   const claimName = env[`${prefix}_CLAIM_NAME`] || 'directus_role';
   let tokenRoles = userInfo?.[claimName];
+  // claimName.split('.').reduce((a, b) => a?.[b], userInfo)
+
   tokenRoles = tokenRoles && !Array.isArray(tokenRoles) ? [tokenRoles] : tokenRoles;
   console.log(payload, userInfo, claimName, tokenRoles);
 
